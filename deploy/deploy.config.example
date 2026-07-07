@@ -1,0 +1,24 @@
+# Copy to deploy.config and fill in. deploy.sh sources this file.
+# Keep this file OUT of git (deploy/deploy.config is gitignored).
+
+# ---- Site ----
+# Domain that points (DNS A/AAAA) at this VPS. Caddy gets a free TLS cert for it.
+# Leave empty to serve plain HTTP on :80 (local/testing only).
+DOMAIN="kasplex.org"
+
+# ---- Faucet backend (required) ----
+RPC_URL="https://<kasplex-l2-testnet-rpc>"   # testnet JSON-RPC endpoint
+FAUCET_PRIVATE_KEY="0x..."                    # funded testnet key (keep secret!)
+
+# ---- Faucet backend (optional; defaults shown) ----
+CHAIN_ID=""            # if set, backend warns on RPC chainId mismatch
+FAUCET_PORT="8790"     # local port the backend listens on (proxied by Caddy)
+DRIP_KAS="50"
+COOLDOWN_HOURS="24"
+BALANCE_CAP_KAS="2"
+HOURLY_BUDGET="100"
+
+# ---- Service ----
+SERVICE_USER="root"    # systemd user for the backend. 'root' is simplest;
+                       # for a hardened setup create a user and make the repo
+                       # + state dir readable by it, then set it here.
