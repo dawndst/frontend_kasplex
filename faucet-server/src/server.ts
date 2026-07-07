@@ -68,7 +68,10 @@ function saveStateSoon() {
 // ---------------- Claim pipeline ----------------
 class ClaimError extends Error {}
 
-function takeHourlyToken(): void {
+// Returns the hour stamp the token was drawn from, so a later refund only
+// applies if we're still in that same hour (avoids under-counting the next
+// window when a send fails across an hour boundary).
+function takeHourlyToken(): number {
     const stamp = Math.floor(Date.now() / 3600_000);
     if (stamp !== state.hourStamp) {
         state.hourStamp = stamp;
@@ -78,6 +81,15 @@ function takeHourlyToken(): void {
         throw new ClaimError('Faucet hourly budget exhausted, please try again later');
     }
     state.hourUsed++;
+    return stamp;
+}
+
+function refundHourlyToken(stamp: number): void {
+    // Only refund within the same hour; if the window rolled over, the token
+    // belonged to a past counter that has already been reset.
+    if (stamp === state.hourStamp) {
+        state.hourUsed = Math.max(0, state.hourUsed - 1);
+    }
 }
 
 // Serialize sends so concurrent requests never race on the wallet nonce
@@ -109,7 +121,7 @@ async function claim(address: string, ip: string): Promise<string> {
         throw new ClaimError('Faucet is empty, please contact the team to refill');
     }
 
-    takeHourlyToken();
+    const tokenStamp = takeHourlyToken();
 
     const result = sendChain.then(async () => {
         const tx = await wallet.sendTransaction({ to, value: DRIP_WEI });
@@ -122,7 +134,7 @@ async function claim(address: string, ip: string): Promise<string> {
     try {
         hash = await result;
     } catch (e) {
-        state.hourUsed = Math.max(0, state.hourUsed - 1); // send failed -> give the token back
+        refundHourlyToken(tokenStamp); // send failed -> give the token back
         console.error('send failed:', e);
         throw new ClaimError('Transaction submit failed, please try again later');
     }
