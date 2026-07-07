@@ -52,10 +52,7 @@ const Header: React.FC = () => {
         }`;
 
     const underline = (
-        <motion.span
-            layoutId="activeTabUnderline"
-            className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full"
-        />
+        <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-primary rounded-full" />
     );
 
     const Dropdown: React.FC<{ id: 'evm' | 'docs'; label: string; active: boolean; items: NavEntry[] }> = ({ id, label, active, items }) => (
