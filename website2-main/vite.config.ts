@@ -34,25 +34,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/faucet-api/, ''),
       },
-      // kasplex explorer
-      '/kasplex-api': {
-        target: 'https://api-explorer.kasplex.org',
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\/kasplex-api/, ''),
-      },
-      // sgx / proof
-      '/sgx-api': {
-        target: 'http://144.91.88.164:8090/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/sgx-api/, ''),
-      },
-      '/stats-api': {
-        target: 'https://stats-explorer.kasplex.org',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/stats-api/, '/api/v1'),
-        secure: true
-      },
     },
   },
   build: {

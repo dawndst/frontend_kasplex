@@ -28,62 +28,10 @@ import IconUex from '@/assets/icon-uex.jpg';
 import IconBridgers from '@/assets/icon-bridgers.jpg';
 import IconGate from '@/assets/icon-gate.jpg';
 
-export const ecosystemList = [
-    {
-        id: 1,
-        name: 'CYSIC',
-        desc: 'Cysic, incorporated in August 2022, focuseson hardware acceleration for zero-knowledgeproof(ZKP).'
-    },
-    {
-        id: 2,
-        name: 'Kasplex',
-        desc: 'Kasplex, founded in 2022, is building a new layer 2 solution forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 3,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 4,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 5,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 6,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 7,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    },
-    {
-        id: 8,
-        name: 'KRC20',
-        desc: 'KRC20, founded in 2022, is building a new token standard forKaspa, focusing on scalability and security.'
-    }
-]
-
-
-export const KasplexApiUrl = `/kasplex-api/api/v2/`
-export const KasplexApi = '/stats-api'
 export const FaucetApi = '/faucet-api'
-
-export const ProofBlockApi = "/sgx-api"
 
 export const Krc20Url = 'https://docs-kasplex.gitbook.io/krc20/'
 export const EVMDocsUrl = 'https://docs-kasplex.gitbook.io/l2-network'
-
-export const KAASPLEX_RPC_URL="https://evmrpc.kasplex.org"
-
-export const pageSize = 24
 
 export const TAGS = [
     { key: "All", name: "All" },
