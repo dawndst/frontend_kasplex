@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
                         >
                             <div className="flex items-center gap-2.5">
                                 <img src={KaspaImg} alt="" className="w-6 h-6 rounded-full" />
-                                <span className="font-mono text-[11px] text-outline group-hover:text-[#e2e2e2] transition-colors">KRC20 GitHub</span>
+                                <span className="font-mono text-[11px] text-outline group-hover:text-[#e2e2e2] transition-colors">Kasplex Github</span>
                             </div>
                             <a
                                 href="https://github.com/kasplex"
