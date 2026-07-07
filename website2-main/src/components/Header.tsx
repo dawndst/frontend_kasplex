@@ -114,15 +114,15 @@ const Header: React.FC = () => {
 
     return (
         <header className="sticky top-0 z-40 bg-[#121414]/80 backdrop-blur-md border-b border-outline-variant/30">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 grid grid-cols-[1fr_auto_1fr] items-center">
 
                 {/* Logo */}
-                <div className="flex items-center cursor-pointer select-none group" onClick={goHome}>
+                <div className="flex items-center cursor-pointer select-none group justify-self-start" onClick={goHome}>
                     <img src={logo} alt="Kasplex" className="h-7 w-auto object-contain transition-transform group-hover:scale-105" />
                 </div>
 
-                {/* Desktop nav */}
-                <nav className="hidden md:flex items-center gap-1.5">
+                {/* Desktop nav — centered */}
+                <nav className="hidden md:flex items-center gap-1.5 justify-self-center">
                     <a className={linkCls(pathName === '/')} onClick={goHome}>
                         HOME
                         {pathName === '/' && underline}
@@ -131,8 +131,11 @@ const Header: React.FC = () => {
                     <Dropdown id="docs" label="DOCS" active={false} items={DOCS_MENU} />
                 </nav>
 
+                {/* Right spacer keeps nav centered on desktop */}
+                <div className="hidden md:block justify-self-end" aria-hidden="true"></div>
+
                 {/* Mobile hamburger */}
-                <div className="flex md:hidden items-center">
+                <div className="flex md:hidden items-center justify-self-end col-start-3">
                     <button
                         onClick={() => setMobileOpen(!mobileOpen)}
                         className="p-2 rounded-lg hover:bg-surface-container text-outline hover:text-[#e2e2e2]"

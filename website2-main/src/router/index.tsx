@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import AppLayout from '../pages/layout'
 import Index from "../pages/index";
@@ -10,7 +10,7 @@ import MediaKit from '@/pages/mediaKit';
 
 const AppRouter: React.FC = () => {
     return (
-      <HashRouter>
+      <BrowserRouter>
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Index />} />
@@ -22,7 +22,7 @@ const AppRouter: React.FC = () => {
             <Route path="*" element={<Index />} />
           </Route>
         </Routes>
-      </HashRouter>
+      </BrowserRouter>
     );
   };
 
