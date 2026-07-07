@@ -1,11 +1,11 @@
 import { HttpRequest } from '../utils/http'
-import { KasplexApiUrl, KasplexApi, ProofBlockApi } from '@/utils/constants'
+import { KasplexApiUrl, KasplexApi, ProofBlockApi, FaucetApi } from '@/utils/constants'
 import type { TransferResponse, KasplexStats, ResponseBlocks, MainPageBlocksItem, ResponseBlockTransactionCount, } from '@/types/type'
 
 const http = new HttpRequest()
 export const transfer = async (params: Record<string, string>): Promise<TransferResponse>=> {
     try {
-        return await http.post<TransferResponse>(`${KasplexApiUrl}/api/claim`, params)
+        return await http.post<TransferResponse>(`${FaucetApi}/claim`, params)
     } catch (error) {
         console.log('error',error)
         return {} as TransferResponse

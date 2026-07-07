@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { transfer } from '@/api/api';
 import { TransferResponse } from '@/types/type';
@@ -13,45 +12,19 @@ interface ToastState {
 }
 
 const Faucet: React.FC = () => {
-    const [token, setToken] = useState('');
     const [address, setAddress] = useState('');
     const [btnLoading, setBtnLoading] = useState<boolean>(false);
     const [toast, setToast] = useState<ToastState | null>(null);
-    const [tokenExpiry, setTokenExpiry] = useState<number>(0);
-    const captchaRef = useRef<HCaptcha>(null);
-    const expiritionTime = 120000;
-    const tokenTime = useRef<ReturnType<typeof setTimeout> | null>(null);
     const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        const script = document.createElement('script');
-        script.src = 'https://js.hcaptcha.com/1/api.js?hl=en';
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
         return () => {
-            document.body.removeChild(script);
-            if (tokenTime.current) {
-                clearTimeout(tokenTime.current);
-            }
             if (toastTime.current) {
                 clearTimeout(toastTime.current);
             }
         };
     }, []);
-
-    const onVerify = (token: string) => {
-        setToken(token);
-        setTokenExpiry(Date.now() + expiritionTime);
-        if (tokenTime.current) {
-            clearTimeout(tokenTime.current);
-        }
-        tokenTime.current = setTimeout(() => {
-            setToken('');
-            setTokenExpiry(0);
-        }, expiritionTime);
-    };
 
     const openMsg = (type: ToastType, msg: string) => {
         if (toastTime.current) {
@@ -65,10 +38,6 @@ const Faucet: React.FC = () => {
 
     const sendFaucet = async () => {
         if (!address.trim()) return;
-        if (!token || Date.now() > tokenExpiry) {
-            openMsg('error', 'Please perform human-machine verification again');
-            return;
-        }
         setBtnLoading(true);
         try {
             const params = {
@@ -84,6 +53,7 @@ const Faucet: React.FC = () => {
                     return;
                 }
             }
+            openMsg('error', 'Request failed, please try again later');
         } catch (error) {
             console.error('Error:', error);
             openMsg('error', 'Request failed, please try again later');
@@ -130,32 +100,22 @@ const Faucet: React.FC = () => {
                             </h5>
                         </div>
 
-                        <div className="space-y-5">
-                            <div className="flex flex-col sm:flex-row gap-3">
-                                <input
-                                    type="text"
-                                    placeholder="Enter Your Wallet Address (0x...)"
-                                    value={address}
-                                    onChange={(e) => setAddress(e.target.value)}
-                                    className="flex-1 min-w-0 bg-surface-container border border-outline-variant rounded-xl px-4 py-3 text-sm font-mono text-[#e2e2e2] placeholder:text-outline/70 outline-none focus:border-primary transition-colors"
-                                />
-                                <button
-                                    onClick={() => sendFaucet()}
-                                    disabled={!address.trim() || btnLoading}
-                                    className="px-6 py-3 bg-primary text-background hover:bg-secondary font-headline font-semibold text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-primary/15 active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100 whitespace-nowrap"
-                                >
-                                    {btnLoading && <Loader2 size={14} className="animate-spin" />}
-                                    Send Me KAS
-                                </button>
-                            </div>
-
-                            <div className="flex justify-center">
-                                <HCaptcha
-                                    sitekey="95807fea-7726-4e7a-97b0-6158a236bc5c"
-                                    onVerify={onVerify}
-                                    ref={captchaRef}
-                                />
-                            </div>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                            <input
+                                type="text"
+                                placeholder="Enter Your Wallet Address (0x...)"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                                className="flex-1 min-w-0 bg-surface-container border border-outline-variant rounded-xl px-4 py-3 text-sm font-mono text-[#e2e2e2] placeholder:text-outline/70 outline-none focus:border-primary transition-colors"
+                            />
+                            <button
+                                onClick={() => sendFaucet()}
+                                disabled={!address.trim() || btnLoading}
+                                className="px-6 py-3 bg-primary text-background hover:bg-secondary font-headline font-semibold text-xs tracking-wider uppercase rounded-xl flex items-center justify-center gap-2 transition-all shadow-xl shadow-primary/15 active:scale-[0.98] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100 whitespace-nowrap"
+                            >
+                                {btnLoading && <Loader2 size={14} className="animate-spin" />}
+                                Send Me KAS
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "^2.0.2",
     "@tailwindcss/vite": "^4.3.2",
     "lucide-react": "^1.23.0",
     "motion": "^12.42.2",

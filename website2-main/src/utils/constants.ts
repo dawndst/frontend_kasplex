@@ -74,6 +74,7 @@ export const ecosystemList = [
 
 export const KasplexApiUrl = `/kasplex-api/api/v2/`
 export const KasplexApi = '/stats-api'
+export const FaucetApi = '/faucet-api'
 
 export const ProofBlockApi = "/sgx-api"
 

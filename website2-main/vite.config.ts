@@ -28,6 +28,12 @@ export default defineConfig({
   server: {
     port: 8080,
     proxy: {
+      // local faucet backend (faucet-server/)
+      '/faucet-api': {
+        target: 'http://localhost:8790',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/faucet-api/, ''),
+      },
       // kasplex explorer
       '/kasplex-api': {
         target: 'https://api-explorer.kasplex.org',

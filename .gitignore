@@ -1,1 +1,4 @@
 kasplex-protocol-hub/
+faucet-server/node_modules
+faucet-server/.env
+faucet-server/faucet-state.json*
