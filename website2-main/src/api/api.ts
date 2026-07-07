@@ -1,13 +1,18 @@
-import { HttpRequest } from '../utils/http'
-import { FaucetApi } from '@/utils/constants'
-import type { TransferResponse } from '@/types/type'
+import { FaucetApi } from '@/utils/constants';
+import type { TransferResponse } from '@/types/type';
 
-const http = new HttpRequest()
-export const transfer = async (params: Record<string, string>): Promise<TransferResponse>=> {
+// Single backend call: request test KAS from the faucet service (see faucet-server/).
+export const transfer = async (params: { address: string }): Promise<TransferResponse> => {
     try {
-        return await http.post<TransferResponse>(`${FaucetApi}/claim`, params)
+        const res = await fetch(`${FaucetApi}/claim`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(params),
+            signal: AbortSignal.timeout(30000),
+        });
+        return await res.json();
     } catch (error) {
-        console.log('error',error)
-        return {} as TransferResponse
+        console.error('faucet claim failed', error);
+        return {};
     }
-}
+};

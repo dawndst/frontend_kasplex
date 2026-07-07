@@ -1,11 +1,6 @@
+// The faucet backend responds only with { msg }: a "Txhash: 0x..." string on
+// success, or a human-readable reason on failure. See faucet-server/src/server.ts.
 interface TransferResponse {
-    code: number;
-    data?: {
-        txid?: string;
-        error?: string;
-    };
-    txid: string;
-    error: string;
     msg?: string;
 }
 

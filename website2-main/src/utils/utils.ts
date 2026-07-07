@@ -1,14 +1,13 @@
-function isValidUrl(url: string) {
-    const regex = /^https?:\/\/[^\s/]+\.[^\s/]+/;
-    return regex.test(url);
+function isValidUrl(url: string): boolean {
+    return /^https?:\/\/[^\s/]+\.[^\s/]+/.test(url);
 }
 
-function openUrl(url: string): void {
-    if (!url || !isValidUrl(url)) return
+export function openUrl(url: string): void {
+    if (!url || !isValidUrl(url)) return;
     window.open(url, '_blank');
 }
 
-export const downloadFile = async (url: string, filename: string) => {
+export async function downloadFile(url: string, filename: string): Promise<void> {
     const res = await fetch(url);
     if (!res.ok) {
         throw new Error('Download failed');
@@ -19,13 +18,8 @@ export const downloadFile = async (url: string, filename: string) => {
     link.download = filename;
     link.click();
     URL.revokeObjectURL(link.href);
-};
+}
 
-export const sleep = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-};
-
-export {
-    isValidUrl,
-    openUrl,
-};
+export function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}

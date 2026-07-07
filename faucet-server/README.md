@@ -1,6 +1,6 @@
 # kasplex-faucet-server
 
-Testnet KAS faucet backend for kasplex.org (`/#/faucet`).
+Testnet KAS faucet backend for kasplex.org (`/faucet`).
 
 ## Run
 

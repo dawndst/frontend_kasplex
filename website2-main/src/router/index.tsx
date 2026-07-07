@@ -14,7 +14,6 @@ const AppRouter: React.FC = () => {
         <Routes>
           <Route element={<AppLayout />}>
             <Route path="/" element={<Index />} />
-            <Route path="/index" element={<Index />} />
             <Route path="/faucet" element={<Faucet />} />
             <Route path="/privacypolicy" element={<Privacypolicy />} />
             <Route path="/evm" element={<Ecosystem />} />

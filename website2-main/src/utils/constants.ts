@@ -4,7 +4,6 @@ import IconKaskad from '@/assets/icon-kaskad.png'
 import IconDagScan from '@/assets/icon-dagscan.png'
 import IconKaspCom from '@/assets/icon-kaspacom.png'
 import IconZealous from '@/assets/icon-zealous.png'
-// import IconCrest from '@/assets/icon-crestdev.png'
 import IconKastle from '@/assets/icon-kastle.png'
 import IconKasperia from '@/assets/icon-kasperia.png'
 import IconKurve from '@/assets/icon-Kurve.svg'
@@ -41,13 +40,7 @@ export const TAGS = [
     { key: "Stablecoin,Oracle,Node & API,Security,Prediction Market", name: "BUSINESS" },
 ]
 
-export const chaildTag = [{
-    title: "Active partnerships",
-    tipMsg: ` The projects listed are already building on the first EVM L2 on Kaspa, they range from DeFi to infrastracture tools. They’re shaping the future of Kaspa’s programmable layer. Join our ecosystem to build, collaborate, and shape the next wave of applications together`
-}]
-
 export const ecoSystem = [
-    
     {
         name: "Kurve",
         types: ["Bridge"],
@@ -260,15 +253,6 @@ export const ecoSystem = [
         isStar: false,
         desc: "ELLIPAL, Leader of Air-gapped cold wallet. Attention: No Customer-facing Facebook Groups!",
     },
-    // {
-    //     name: "Crest Development",
-    //     types: ["Development Studio"],
-    //     href: "https://crestdev.pro/",
-    //     tag: "",
-    //     logo: IconCrest,
-    //     isOpen: false,
-    //     desc: "Crest Dev Studio is a team of experienced smart contract developers and blockchain specialists creating reliable and efficient products for business and finance. Our solutions blend cutting-edge technology with intuitive design, making complex concepts simple and accessible.",
-    // },
     {
         name: "Kastle",
         types: ["Wallet"],
