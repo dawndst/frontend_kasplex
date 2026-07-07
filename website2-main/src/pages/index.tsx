@@ -71,9 +71,9 @@ const Index: React.FC = () => {
             {/* ------------------ Hero ------------------ */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-4">
                 <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-                    <h1 className="font-headline font-black text-4xl sm:text-5xl md:text-6xl text-[#e2e2e2] leading-[1.1] tracking-tight">
+                    <h1 className="font-headline font-bold text-4xl sm:text-5xl md:text-6xl text-[#e2e2e2] leading-[1.05] tracking-[-0.02em]">
                         Building <br className="hidden sm:inline" />
-                        The Future Of <span className="text-primary glow-cyan bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Kaspa</span>
+                        The Future Of <span className="text-primary">Kaspa</span>
                     </h1>
 
                     <p className="text-sm sm:text-base text-outline leading-relaxed max-w-xl mx-auto lg:mx-0">
