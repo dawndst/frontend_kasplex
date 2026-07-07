@@ -1,7 +1,7 @@
 import type { MainPageBlocksItem, DecoratedBlock, BlocksItem, BlockValidation, ValidationItem } from '@/types/type'
 
 function debounce<T extends (...args: unknown[]) => unknown>(func: T, delay: number): (...args: Parameters<T>) => void {
-    let timer: NodeJS.Timeout | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
     return function (this: ThisParameterType<T>, ...args: Parameters<T>): void {
         if (timer) {

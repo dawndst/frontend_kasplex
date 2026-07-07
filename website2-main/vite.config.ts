@@ -35,12 +35,6 @@ export default defineConfig({
         secure: true,
         rewrite: (path) => path.replace(/^\/kasplex-api/, ''),
       },
-      '/kasplex-krc20': {
-        target: 'https://archive-api.kasplex.org/',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/kasplex-krc20/, '/v1')
-      },
-
       // sgx / proof
       '/sgx-api': {
         target: 'http://144.91.88.164:8090/',
@@ -72,21 +66,6 @@ export default defineConfig({
     }
   },
   css: {
-    modules: {
-      localsConvention: 'camelCaseOnly',
-      generateScopedName: '[name]__[local]___[hash:base64:5]'
-    },
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true,
-        modifyVars: {
-          'primary-color': '#043744 ',
-          'link-color': '#25E2DD',
-          'border-radius-base': '5px'
-        },
-        additionalData: `@import "@/styles/variables.less";`
-      }
-    },
     postcss: {
       plugins: [
         autoprefixer()

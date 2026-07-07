@@ -34,6 +34,11 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
         navigate('/evm');
     };
 
+    const goFaucet = () => {
+        setMobileOpen(false);
+        navigate('/faucet');
+    };
+
     const goProducts = () => {
         setMobileOpen(false);
         if (pathName !== '/') {
@@ -77,6 +82,10 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
                     <a className={linkCls(pathName === '/evm')} onClick={goEvm}>
                         EVM
                         {pathName === '/evm' && underline}
+                    </a>
+                    <a className={linkCls(pathName === '/faucet')} onClick={goFaucet}>
+                        FAUCET
+                        {pathName === '/faucet' && underline}
                     </a>
                     <div
                         className="relative"
@@ -162,6 +171,7 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
                             { label: 'Home', onClick: goHome, active: pathName === '/' },
                             { label: 'PRODUCTS', onClick: goProducts, active: false },
                             { label: 'EVM', onClick: goEvm, active: pathName === '/evm' },
+                            { label: 'FAUCET', onClick: goFaucet, active: pathName === '/faucet' },
                             { label: 'KRC20 DOCS', onClick: () => goUrl(Krc20Url), active: false },
                             { label: 'EVM DOCS', onClick: () => goUrl(EVMDocsUrl), active: false },
                         ].map((item) => (

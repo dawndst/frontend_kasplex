@@ -1,5 +1,4 @@
 import AppRouter from "./router/index";
-import './styles/global.less'
 
 function App() {
   return (

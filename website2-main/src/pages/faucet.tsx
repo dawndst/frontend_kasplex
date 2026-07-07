@@ -21,8 +21,8 @@ const Faucet: React.FC = () => {
     const [tokenExpiry, setTokenExpiry] = useState<number>(0);
     const captchaRef = useRef<HCaptcha>(null);
     const expiritionTime = 120000;
-    const tokenTime = useRef<NodeJS.Timeout | null>(null);
-    const toastTime = useRef<NodeJS.Timeout | null>(null);
+    const tokenTime = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const toastTime = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     useEffect(() => {
         window.scrollTo(0, 0);

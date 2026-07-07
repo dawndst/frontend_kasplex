@@ -9,7 +9,6 @@ import Privacypolicy from '../pages/privacypolicy'
 import Ecosystem from '../pages/ecosystem'
 // import Nopage from '../pages/nopage'
 import StatsIndex from '@/pages/stats/index'
-import VerifyContent from '@/pages/stats/verify'
 
 import MediaKit from '@/pages/mediaKit';
 
@@ -28,7 +27,6 @@ const AppRouter: React.FC = () => {
           </Route>
           <Route element={<StatsLayout />}>
             <Route path="/stats" element={<StatsIndex />} />
-            <Route path="/verify" element={<VerifyContent />} />
           </Route>
         </Routes>
       </HashRouter>

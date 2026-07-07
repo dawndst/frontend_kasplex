@@ -1,9 +1,6 @@
 import React from "react";
-import { Modal, Button, Skeleton, Typography, Tag } from "antd";
-import { CloseOutlined, CheckCircleFilled, } from "@ant-design/icons";
-import '@/styles/stats/blockVerifyModal.less';
-
-const { Title, Text } = Typography;
+import { motion, AnimatePresence } from "motion/react";
+import { X, CheckCircle2 } from "lucide-react";
 
 type SelectedBlock = {
   number: number | string;
@@ -13,6 +10,7 @@ type SelectedBlock = {
   daa_score?: number | string;
   anchor_hash?: string;
 };
+
 interface ValidationData {
   key: string;
   label: string;
@@ -27,165 +25,155 @@ interface BlockValidationModalProps {
   selectedBlock: SelectedBlock | null;
   validation: unknown;
   validationDescriptions: ValidationData[];
-  goUrl: (url: string) => void;
 }
 
-const BlockValidationModal: React.FC<BlockValidationModalProps> = ({  open, selectedBlock, validation, validationDescriptions, closeModal, goUrl, }) => {
-  const buildVerifyUrl = (): string => {
-    if (!selectedBlock) return "/verify";
-    const params = new URLSearchParams({
-      block: String(selectedBlock.number ?? ""),
-      type: "TEE",
-      input: String(selectedBlock.input ?? ""),
-      proof: String(selectedBlock.proof ?? ""),
-      quote: String(selectedBlock.quote ?? ""),
-      daa_score: String(selectedBlock.daa_score ?? ""),
-      anchor_hash: String(selectedBlock.anchor_hash ?? ""),
-    });
-    return `/verify?${params.toString()}`;
-  };
+const SectionHead: React.FC<{ title: string }> = ({ title }) => (
+  <div className="flex items-center gap-2.5">
+    <span className="w-1 h-4 rounded-full bg-primary" />
+    <span className="font-headline font-semibold text-sm text-secondary uppercase tracking-wider">
+      {title}
+    </span>
+  </div>
+);
 
+const BlockValidationModal: React.FC<BlockValidationModalProps> = ({
+  open,
+  selectedBlock,
+  validation,
+  validationDescriptions,
+  closeModal,
+}) => {
   return (
-    <Modal
-      open={open}
-      onCancel={closeModal}
-      footer={null}
-      closable={false}
-      centered
-      destroyOnHidden
-      width={660}
-      className="block-validation-modal"
-    >
-      <div className="block-validation-modal__shell">
-        <div className="block-validation-modal__header">
-          <Title level={4} className="block-validation-modal__title">
-            {selectedBlock
-              ? `Block #${selectedBlock.number} Validation`
-              : "Block Validation"}
-          </Title>
-          <Button
-            type="text"
-            icon={<CloseOutlined />}
-            className="block-validation-modal__close"
-            onClick={closeModal}
-          />
-        </div>
-        <div className="block-validation-modal__body">
-          {selectedBlock && validation ? (
-            <>
-              <section className="block-validation-section">
-                <div className="block-validation-section__head">
-                  <span className="block-validation-section__bar" />
-                  <Text className="block-validation-section__title">
-                    Basic Information
-                  </Text>
-                </div>
+    <AnimatePresence>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.18 }}
+            className="glass-card glow-cyan rounded-2xl w-full max-w-[660px] shadow-2xl overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between gap-4 px-5 sm:px-6 py-4 border-b border-outline-variant/40 bg-surface-container-low/40">
+              <h4 className="font-headline font-bold text-base sm:text-lg text-[#e2e2e2] tracking-tight">
+                {selectedBlock
+                  ? `Block #${selectedBlock.number} Validation`
+                  : "Block Validation"}
+              </h4>
+              <button
+                type="button"
+                aria-label="Close"
+                onClick={closeModal}
+                className="p-2 rounded-lg text-outline hover:text-[#e2e2e2] hover:bg-surface-container-high transition-colors cursor-pointer"
+              >
+                <X size={16} />
+              </button>
+            </div>
 
-                <div className="block-validation-basic">
-                  <div className="block-validation-basic__item">
-                    <Text className="block-validation-basic__label">
-                      Block Number
-                    </Text>
-                    <div className="block-validation-basic__value">
-                      {selectedBlock.number}
+            {/* Body */}
+            <div className="px-5 sm:px-6 py-5 space-y-6 max-h-[65vh] overflow-y-auto custom-scrollbar">
+              {selectedBlock && validation ? (
+                <>
+                  <section className="space-y-3">
+                    <SectionHead title="Basic Information" />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="rounded-xl border border-outline-variant/40 bg-surface-container-low/60 px-4 py-3 space-y-1">
+                        <p className="font-mono text-[10px] uppercase tracking-wider text-outline">
+                          Block Number
+                        </p>
+                        <p className="font-mono text-base text-primary break-all">
+                          {selectedBlock.number}
+                        </p>
+                      </div>
+                      <div className="rounded-xl border border-outline-variant/40 bg-surface-container-low/60 px-4 py-3 space-y-1">
+                        <p className="font-mono text-[10px] uppercase tracking-wider text-outline">
+                          DaaScore
+                        </p>
+                        <p className="font-mono text-base text-[#e2e2e2] break-all">
+                          {selectedBlock.daa_score || "--"}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  </section>
 
-                  <div className="block-validation-basic__item">
-                    <Text className="block-validation-basic__label">
-                      DaaScore
-                    </Text>
-                    <div className="block-validation-basic__value">
-                      {selectedBlock.daa_score || "--"}
+                  <section className="space-y-3">
+                    <SectionHead title="Hex Data Validations" />
+                    <div className="rounded-xl border border-outline-variant/40 bg-surface-container-low/40 divide-y divide-outline-variant/30">
+                      {validationDescriptions.length > 0 &&
+                        validationDescriptions.map((item) => (
+                          <div
+                            key={item.key}
+                            className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-3"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <span className="text-primary shrink-0 flex items-center">
+                                {item.icon}
+                              </span>
+                              <span className="font-mono text-xs text-[#e2e2e2] truncate">
+                                {item.label}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-3 shrink-0">
+                              {item.detail && (
+                                <span className="font-mono text-[10px] text-primary-fixed bg-secondary-container/30 border border-primary/15 px-2 py-0.5 rounded">
+                                  {item.detail}
+                                </span>
+                              )}
+                              <span
+                                className={`flex items-center gap-1 font-mono text-[11px] font-semibold ${
+                                  item.status === "OK"
+                                    ? "text-[#52c41a]"
+                                    : "text-error-red"
+                                }`}
+                              >
+                                <CheckCircle2 size={13} />
+                                <span>{item.status}</span>
+                              </span>
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                  </div>
-                </div>
-              </section>
-              <section className="block-validation-section">
-                <div className="block-validation-section__head">
-                  <span className="block-validation-section__bar" />
-                  <Text className="block-validation-section__title">
-                    Hex Data Validations
-                  </Text>
-                </div>
-                <div className="block-validation-list">
-                  { validationDescriptions?.length && validationDescriptions.map((item, index) => (
+                  </section>
+                </>
+              ) : (
+                <div className="space-y-3 animate-pulse py-2">
+                  {Array.from({ length: 8 }).map((_, i) => (
                     <div
-                      key={item.key}
-                      className={`block-validation-list__row ${index > 0 ? "is-bordered" : ""
-                        }`}
-                    >
-                      <div className="block-validation-list__left">
-                        <span className="block-validation-list__icon">
-                          {item.icon}
-                        </span>
-                        <span className="block-validation-list__name">
-                          {item.label}
-                        </span>
-                      </div>
-
-                      <div className="block-validation-list__right">
-                        <Tag className="block-validation-list__len">
-                          {item.detail}
-                        </Tag>
-
-                        <div className="block-validation-list__status is-ok">
-                          <CheckCircleFilled />
-                          <span>{item.status}</span>
-                        </div>
-                      </div>
-                    </div>
+                      key={i}
+                      className={`h-3.5 rounded bg-surface-container-high ${
+                        i % 3 === 2 ? "w-2/3" : "w-full"
+                      }`}
+                    />
                   ))}
                 </div>
-              </section>
-              {/* {!!validationDescriptions?.length && (
-                <section className="block-validation-section">
-                  <div className="block-validation-section__head">
-                    <span className="block-validation-section__bar" />
-                    <Text className="block-validation-section__title">
-                      Validation Details
-                    </Text>
-                  </div>
-                  <div className="block-validation-detail">
-                    {validationDescriptions.map((item) => (
-                      <div className="block-validation-detail__item" key={item.key}>
-                        {item.label && (
-                          <div className="block-validation-detail__label">
-                            {item.label}
-                          </div>
-                        )}
-                        <div className="block-validation-detail__content">
-                          {item.children}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )} */}
-            </>
-          ) : (
-            <div className="block-validation-modal__loading">
-              <Skeleton active paragraph={{ rows: 8 }} />
+              )}
             </div>
-          )}
-        </div>
 
-        <div className="block-validation-modal__footer">
-          <Button
-            className="block-validation-modal__btn block-validation-modal__btn-ghost"
-            onClick={closeModal}
-          >
-            Close
-          </Button>
-          <Button
-            className="block-validation-modal__btn block-validation-modal__btn-primary"
-            onClick={() => selectedBlock && goUrl(buildVerifyUrl())}
-          >
-            Verify
-          </Button>
-        </div>
-      </div>
-    </Modal>
+            {/* Footer */}
+            <div className="flex justify-end px-5 sm:px-6 py-4 border-t border-outline-variant/40 bg-surface-container-low/40">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="px-6 py-2.5 bg-surface-container hover:bg-surface-container-high border border-outline-variant hover:border-outline text-[#e2e2e2] font-headline font-semibold text-xs tracking-wider uppercase rounded-xl transition-all cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 

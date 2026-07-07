@@ -152,11 +152,6 @@ export type TxItem = {
 };
 
 
-export type ResponseVspcRes = {
-    message: "successful" | "failed";
-    result: VspcData[];
-};
-
 export type ChainBlockParsed = {
     daascore: number;
     hash: string;

@@ -1,6 +1,6 @@
 import { HttpRequest } from '../utils/http'
-import { KasplexApiUrl, KasplexApi, ProofBlockApi, KasplexKrc20Api } from '@/utils/constants'
-import type { TransferResponse, KasplexStats, ResponseBlocks, MainPageBlocksItem, ResponseBlockTransactionCount, ResponseVspcRes, } from '@/types/type'
+import { KasplexApiUrl, KasplexApi, ProofBlockApi } from '@/utils/constants'
+import type { TransferResponse, KasplexStats, ResponseBlocks, MainPageBlocksItem, ResponseBlockTransactionCount, } from '@/types/type'
 
 const http = new HttpRequest()
 export const transfer = async (params: Record<string, string>): Promise<TransferResponse>=> {
@@ -48,12 +48,3 @@ export const getTransactionCountByBlock = async (blockNumber: number) => {
         return { } as ResponseBlockTransactionCount
     }
 }
-
-export const getVspcList = async (daaScore: number) => {
-    try {
-        return await http.get<ResponseVspcRes>(`${KasplexKrc20Api}/archive/vspc/${daaScore}`)
-    } catch(error) {
-        console.log('error', error)
-        return { } as ResponseVspcRes
-    }
-} 

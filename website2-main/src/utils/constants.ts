@@ -71,11 +71,9 @@ export const ecosystemList = [
     }
 ]
 
-export const BASE_URL = 'https://explorer.testnet.kasplextest.xyz/api/v2/'
 
 export const KasplexApiUrl = `/kasplex-api/api/v2/`
 export const KasplexApi = '/stats-api'
-export const KasplexKrc20Api = "/kasplex-krc20"
 
 export const ProofBlockApi = "/sgx-api"
 
