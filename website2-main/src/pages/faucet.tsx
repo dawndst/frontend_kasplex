@@ -4,7 +4,6 @@ import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { transfer } from '@/api/api';
 import { TransferResponse } from '@/types/type';
-import logo from '@/assets/LOGO1-1.png';
 
 type ToastType = 'success' | 'error';
 
@@ -121,18 +120,6 @@ const Faucet: React.FC = () => {
             <div className="max-w-3xl mx-auto space-y-8">
                 {/* ------------------ Faucet panel ------------------ */}
                 <div className="glass-card glow-cyan rounded-2xl overflow-hidden">
-                    {/* Top bar */}
-                    <div className="flex flex-wrap items-center justify-between gap-3 px-5 sm:px-8 py-4 border-b border-outline-variant/40 bg-surface-container-low/40">
-                        <div className="flex items-center gap-2.5">
-                            <strong className="font-headline font-semibold text-xs uppercase tracking-wider text-outline">Powered by</strong>
-                            <img className="h-5 sm:h-6 w-auto object-contain" src={logo} alt="kaspa logo" />
-                            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        </div>
-                        <button className="px-3 py-1.5 rounded-lg bg-secondary-container/30 border border-primary/25 font-mono text-[11px] text-primary-fixed transition-colors hover:border-primary/50 cursor-pointer">
-                            Ethereum Sepolia
-                        </button>
-                    </div>
-
                     <div className="px-5 sm:px-8 py-8 sm:py-10 space-y-8">
                         <div className="text-center space-y-3">
                             <h2 className="font-headline font-black text-2xl sm:text-3xl md:text-4xl text-[#e2e2e2] tracking-tight">
