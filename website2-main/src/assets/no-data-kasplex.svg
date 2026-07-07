@@ -1,0 +1,38 @@
+<svg width="280" height="200" viewBox="0 0 280 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="g" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(140 120) rotate(90) scale(120 220)">
+      <stop stop-color="#0AE7E7" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#0AE7E7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="c" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#00D5FF"/>
+      <stop offset="1" stop-color="#1BE4B0"/>
+    </linearGradient>
+    <filter id="drop" x="-50%" y="-50%" width="200%" height="200%">
+      <feOffset dy="6" />
+      <feGaussianBlur stdDeviation="10"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0   0 0 0 0 0.75   0 0 0 0 0.78   0 0 0 0.25 0"/>
+      <feBlend mode="normal" in2="SourceGraphic" result="shape"/>
+    </filter>
+  </defs>
+  <rect width="280" height="200" fill="url(#g)" opacity=".35"/>
+  <g filter="url(#drop)">
+    <rect x="80" y="96" width="120" height="40" rx="10" fill="#0E1E22" stroke="#17373D"/>
+  </g>
+  <rect x="110" y="64" width="60" height="50" rx="6" fill="#0F2830" stroke="#1A4950"/>
+  <rect x="116" y="72" width="48" height="6" rx="3" fill="#153E45"/>
+  <rect x="116" y="84" width="48" height="6" rx="3" fill="#153E45" opacity=".8"/>
+  <rect x="116" y="96" width="34" height="6" rx="3" fill="#153E45" opacity=".65"/>
+  <g transform="translate(176,44)">
+    <circle cx="10" cy="10" r="10" fill="#0F2830" stroke="#1A4950"/>
+    <circle cx="6" cy="10" r="2" fill="url(#c)"/>
+    <circle cx="10" cy="10" r="2" fill="url(#c)"/>
+    <circle cx="14" cy="10" r="2" fill="url(#c)"/>
+  </g>
+  <path d="M90 140 C110 130, 170 130, 190 140" stroke="url(#c)" stroke-width="2" opacity=".25"/>
+  <path d="M100 146 C120 138, 160 138, 180 146" stroke="url(#c)" stroke-width="2" opacity=".18"/>
+  <rect x="106" y="60" width="68" height="58" rx="8" stroke="url(#c)" opacity=".35"/>
+  <rect x="76" y="92" width="128" height="48" rx="12" stroke="url(#c)" opacity=".25"/>
+  <text x="140" y="176" text-anchor="middle" font-family="Inter, ui-sans-serif, system-ui" font-size="14" font-weight="700" fill="#BEEFF2" opacity=".9">No data</text>
+</svg>

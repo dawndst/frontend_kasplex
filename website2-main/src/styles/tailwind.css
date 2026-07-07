@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-error-red: #FF4D4D;
+  --color-warning-amber: #FFB800;
+  --color-surface-container-lowest: #0d0f0f;
+  --color-surface-container-high: #282a2a;
+  --color-surface-raised: #141717;
+  --color-surface-bright: #383939;
+  --color-inverse-surface: #e2e2e2;
+  --color-surface-tint: #62d7de;
+  --color-secondary-container: #025c5f;
+  --color-background: #121414;
+  --color-primary-container: #0ea0a6;
+  --color-surface-deep: #000000;
+  --color-surface-container: #1e2020;
+  --color-secondary: #8dd2d5;
+  --color-surface-container-highest: #333535;
+  --color-primary-fixed: #81f4fa;
+  --color-surface-variant: #333535;
+  --color-surface-dim: #121414;
+  --color-surface-container-low: #1a1c1c;
+  --color-primary: #62d7de;
+  --color-outline-variant: #3d494a;
+  --color-surface: #121414;
+  --color-outline: #869394;
+  --color-success-teal: #00F5FF;
+  --color-tertiary: #5fd8de;
+
+  --font-sans: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Rubik", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+@utility glass-card {
+  background: rgba(26, 28, 28, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(61, 73, 74, 0.4);
+}
+
+@utility glow-cyan {
+  box-shadow: 0px 4px 30px rgba(98, 215, 222, 0.12);
+}
+
+@utility hero-gradient {
+  background: radial-gradient(circle at top center, rgba(0, 157, 163, 0.15) 0%, rgba(18, 20, 20, 0) 70%);
+}
+
+/* Custom scrollbars */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0d0f0f;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3d494a;
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #62d7de;
+}
