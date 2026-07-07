@@ -13,10 +13,6 @@ interface TransferResponse {
     msg?: string;
 }
 
-type LayoutContext = {
-    productRef: React.RefObject<HTMLDivElement>
-}
-
 interface ListData {
     name: string;
     logo?: string;
@@ -177,7 +173,6 @@ export type ChainBlockVerbose = {
 export type {
     TransferParams,
     TransferResponse,
-    LayoutContext,
     ListData,
     CSSVars,
     KasplexStats,

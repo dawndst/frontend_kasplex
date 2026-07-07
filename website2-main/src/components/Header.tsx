@@ -5,16 +5,19 @@ import { Menu, X, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { Krc20Url, EVMDocsUrl } from '@/utils/constants';
 import logo from '@/assets/LOGO1-1.png';
 
-interface HeaderProps {
-    isMobile?: boolean;
-    onItemClick?: () => void;
-}
-
 const ExplorerUrl = 'https://explorer.kasplex.org/';
 
-const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
+// Routed pages that don't have their own header tab
+const OTHER_PAGES = [
+    { label: 'Stats', path: '/stats' },
+    { label: 'Media Kit', path: '/mediaKit' },
+    { label: 'Privacy Policy', path: '/privacypolicy' },
+];
+
+const Header: React.FC = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [docsOpen, setDocsOpen] = useState(false);
+    const [othersOpen, setOthersOpen] = useState(false);
     const location = useLocation();
     const pathName = location.pathname;
     const navigate = useNavigate();
@@ -39,15 +42,14 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
         navigate('/faucet');
     };
 
-    const goProducts = () => {
+    const goPage = (path: string) => {
         setMobileOpen(false);
-        if (pathName !== '/') {
-            navigate('/', { state: { product: 'product' } });
-        }
-        setTimeout(() => {
-            onItemClick?.();
-        }, 50);
+        setOthersOpen(false);
+        navigate(path);
+        window.scrollTo({ top: 0, behavior: 'instant' });
     };
+
+    const isOtherActive = OTHER_PAGES.some((p) => p.path === pathName);
 
     const linkCls = (active: boolean) =>
         `px-4 py-1.5 rounded-xl font-headline text-sm font-semibold tracking-wide transition-all relative cursor-pointer ${
@@ -75,9 +77,6 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
                     <a className={linkCls(pathName === '/')} onClick={goHome}>
                         HOME
                         {pathName === '/' && underline}
-                    </a>
-                    <a className={linkCls(false)} onClick={goProducts}>
-                        PRODUCTS
                     </a>
                     <a className={linkCls(pathName === '/evm')} onClick={goEvm}>
                         EVM
@@ -127,6 +126,44 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
                             )}
                         </AnimatePresence>
                     </div>
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setOthersOpen(true)}
+                        onMouseLeave={() => setOthersOpen(false)}
+                    >
+                        <a className={`${linkCls(isOtherActive)} flex items-center gap-1`}>
+                            OTHERS
+                            <ChevronDown size={13} className={`transition-transform ${othersOpen ? 'rotate-180' : ''}`} />
+                            {isOtherActive && underline}
+                        </a>
+                        <AnimatePresence>
+                            {othersOpen && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -6 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -6 }}
+                                    transition={{ duration: 0.15 }}
+                                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 z-50"
+                                >
+                                    <div className="glass-card rounded-xl overflow-hidden min-w-[160px] shadow-2xl">
+                                        {OTHER_PAGES.map((p) => (
+                                            <a
+                                                key={p.path}
+                                                onClick={() => goPage(p.path)}
+                                                className={`block px-4 py-2.5 font-headline text-sm font-semibold cursor-pointer transition-colors ${
+                                                    pathName === p.path
+                                                        ? 'text-primary bg-surface-container'
+                                                        : 'text-outline hover:text-primary hover:bg-surface-container'
+                                                }`}
+                                            >
+                                                {p.label}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
                 </nav>
 
                 {/* Explorer button (desktop) */}
@@ -169,9 +206,13 @@ const Header: React.FC<HeaderProps> = ({ onItemClick }) => {
                     >
                         {[
                             { label: 'Home', onClick: goHome, active: pathName === '/' },
-                            { label: 'PRODUCTS', onClick: goProducts, active: false },
                             { label: 'EVM', onClick: goEvm, active: pathName === '/evm' },
                             { label: 'FAUCET', onClick: goFaucet, active: pathName === '/faucet' },
+                            ...OTHER_PAGES.map((p) => ({
+                                label: p.label,
+                                onClick: () => goPage(p.path),
+                                active: pathName === p.path,
+                            })),
                             { label: 'KRC20 DOCS', onClick: () => goUrl(Krc20Url), active: false },
                             { label: 'EVM DOCS', onClick: () => goUrl(EVMDocsUrl), active: false },
                         ].map((item) => (

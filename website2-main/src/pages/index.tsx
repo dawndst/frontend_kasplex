@@ -1,7 +1,5 @@
 import React from 'react';
-import { useOutletContext } from 'react-router-dom';
 import { ArrowUpRight, ArrowDown, ArrowUp } from 'lucide-react';
-import type { LayoutContext } from '@/types/type';
 import { Krc20Url } from '@/utils/constants';
 
 import productImg1 from '@/assets/mission-0.png';
@@ -61,7 +59,6 @@ const DiagramLabel: React.FC<{ children: React.ReactNode; className?: string }> 
 );
 
 const Index: React.FC = () => {
-    const { productRef } = useOutletContext<LayoutContext>();
 
     const goLink = (href?: string) => {
         if (!href) return;
@@ -113,7 +110,7 @@ const Index: React.FC = () => {
             </div>
 
             {/* ------------------ Product Matrix ------------------ */}
-            <div className="space-y-6 scroll-mt-24" ref={productRef}>
+            <div className="space-y-6">
                 <div className="text-center max-w-xl mx-auto space-y-2">
                     <h2 className="font-headline font-bold text-3xl text-[#e2e2e2]">
                         Product <span className="text-primary">Matrix</span>
