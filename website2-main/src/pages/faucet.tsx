@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle, ArrowUpRight } from 'lucide-react';
 import { transfer } from '@/api/api';
 import { TransferResponse } from '@/types/type';
+
+const TestnetExplorerUrl = 'https://explorer.testnet.kasplextest.xyz/';
 
 type ToastType = 'success' | 'error';
 
@@ -136,6 +138,21 @@ const Faucet: React.FC = () => {
                         <p className="text-xs sm:text-sm text-outline leading-relaxed">
                             This faucet is built to supply test tokens to developers for testing smart contracts and engaging with Kasplex L2.A balance exceeding 2 KAS is enough for testing purposes.
                         </p>
+                        <div className="pt-1">
+                            <h6 className="font-headline font-semibold text-sm text-secondary mb-1">Where can I track my transaction?</h6>
+                            <p className="text-xs sm:text-sm text-outline leading-relaxed">
+                                Once you receive your test KAS, you can view the transaction and your balance on the Kasplex L2 testnet explorer:
+                            </p>
+                            <a
+                                href={TestnetExplorerUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-2 inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm text-primary hover:text-primary-fixed transition-colors break-all"
+                            >
+                                {TestnetExplorerUrl}
+                                <ArrowUpRight size={13} className="shrink-0" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
